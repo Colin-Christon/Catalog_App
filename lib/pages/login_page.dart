@@ -1,20 +1,33 @@
 import "package:flutter/material.dart";
 
-class LoginPage extends StatelessWidget {
+import "../utils/routes.dart";
+
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  String name = " ";
 
   @override
   Widget build(BuildContext context) {
     return Material(
         color: Colors.white,
-        child: Column(
+        child: SingleChildScrollView(
+            child: Column(
           children: [
-            Image.asset("assets/images/loginimg.png", fit: BoxFit.cover),
+            Image.asset(
+              "assets/images/loginimg.png",
+              fit: BoxFit.cover,
+            ),
             SizedBox(
               height: 20.0,
             ),
             Text(
-              "WelCome",
+              "WelCome $name",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(
@@ -32,25 +45,30 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: " Enter  password",
-                        labelText: "Password",
-                      )),
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: " Enter  password",
+                      labelText: "Password",
+                    ),
+                    onChanged: (value) {
+                      name = value;
+                      setState(() {});
+                    },
+                  ),
                   SizedBox(
                     height: 20.0,
                   ),
                   ElevatedButton(
                     child: Text("Login"),
-                    style: TextButton.styleFrom(),
+                    style: TextButton.styleFrom(minimumSize: Size(150, 40)),
                     onPressed: () {
-                      print("Hi Colin");
+                      Navigator.pushNamed(context, MyRoutes.homeRoute);
                     },
                   ),
                 ],
               ),
             )
           ],
-        ));
+        )));
   }
 }
